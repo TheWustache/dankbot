@@ -1,0 +1,3 @@
+CREATE TABLE entry (
+  chat_id INTEGER PRIMARY KEY
+);
