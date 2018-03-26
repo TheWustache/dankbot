@@ -5,6 +5,7 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import sqlite3
 import logging
+import subprocess
 
 # set up logging
 logging.basicConfig(
@@ -65,10 +66,21 @@ def unmeme_(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text="➖")
 
 
+def ping_(bot, update):
+    bot.send_message(chat_id=update.message.chat_id, text="pong")
+
+
+def voice_(bot, update, args):
+    subprocess.run(['python3', 'texttovoice.py', 'temp', ' '.join(args)])
+    bot.sendVoice(chat_id=update.message.chat_id, voice=open('temp.ogg', 'rb'))
+
+
 #  register handlers
 # dispatcher.add_handler(CommandHandler('start', start_))
 dispatcher.add_handler(CommandHandler('meme', meme_))
 dispatcher.add_handler(CommandHandler('unmeme', unmeme_))
+dispatcher.add_handler(CommandHandler('ping', ping_))
+dispatcher.add_handler(CommandHandler('voice', voice_, pass_args=True))
 
 # set up scheduler
 scheduler = BackgroundScheduler()
@@ -93,3 +105,4 @@ scheduler.start()
 # start polling
 print("Starting polling...")
 updater.start_polling()
+updater.idle()

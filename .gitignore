@@ -102,3 +102,6 @@ ENV/
 
 # database
 *.sqlite
+
+*.ogg
+*.wav
