@@ -99,7 +99,7 @@ def post_():
         bot.send_message(chat_id=result[0], text=text, parse_mode="Markdown")
 
 
-scheduler.add_job(post_, 'cron', hour=16, minute=20)
+scheduler.add_job(post_, 'cron', hour=16, minute=20, second=10)
 scheduler.start()
 
 # start polling
