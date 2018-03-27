@@ -5,7 +5,7 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import sqlite3
 import logging
-import subprocess
+from watson_tts import watson_tts
 
 # set up logging
 logging.basicConfig(
@@ -71,7 +71,7 @@ def ping_(bot, update):
 
 
 def voice_(bot, update, args):
-    subprocess.run(['python3', 'texttovoice.py', 'temp', ' '.join(args)])
+    watson_tts('temp.ogg', ' '.join(args))
     bot.sendVoice(chat_id=update.message.chat_id, voice=open('temp.ogg', 'rb'))
 
 
